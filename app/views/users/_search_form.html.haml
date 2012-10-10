@@ -1,0 +1,53 @@
+= simple_form_for @search, :url => search_admin_matching_url(@job), :method => :get do |f|
+  .row-fluid
+    .span3
+      %p= "Query and Options"
+      = f.input :query, :as => :text, :class => 'string', :size => 60
+      = f.input :location, :class => 'string', :size => 60
+      = f.input :location_distance, :class => 'string', :size => 60
+
+    .span3
+      %p= "Filter"
+      = f.input :circle_search, :as => :check_boxes, :collection => ['circle_search'], :label => ""
+      = f.input :students, :as => :check_boxes, :collection => ['students'], :label => ""
+      = f.input :seniors, :as => :check_boxes, :collection => ['seniors'], :label => ""
+
+      -#:circle_search, :show_hidden, :show_added, :dis_max, :analyzer, :students, :seniors
+      %p= ((@search.coordinates) ? "" : "Circle Search did not work last time. (coordinates: #{@search.coordinates})")
+
+      = f.input :person_id, :label => 'UID domi: 621313638 jonas: 1207569787 chris: 640205849 dani: 787531879', :class => 'string', :size => 60
+      = f.input :show_added, :as => :radio_buttons, :class => 'string', :size => 60, :outher_html => :div
+      = f.input :show_hidden, :as => :radio_buttons, :class => 'string', :size => 60
+      = f.input :year_filter, :class => 'string', :size => 60
+
+    .span3
+      %p= "Workplace"
+      = f.input :workplace_position, :label => 'Positions', :class => 'works', :size => 60
+      = f.input :workplace_employer, :label => 'Employers', :class => 'works', :size => 60
+      = f.input :workplace_description, :label => 'Desciption', :class => 'works', :size => 60
+      = f.input :workplace_location, :label => 'Positions', :class => 'works', :size => 60
+
+    .span3
+      %p= "Education"
+      = f.input :education_school, :label => 'School', :class => 'edus', :size => 60
+      = f.input :education_concentration, :label => 'Concentration', :class => 'edus', :size => 60
+      = f.input :education_type, :label => 'Type', :class => 'edus', :size => 60
+      = f.input :education_year, :label => 'Year', :class => 'edus', :size => 60
+
+
+      - if false
+        = f.label 'filter_looking_for', "Filter looking for"
+        = f.check_box 'filter_looking_for', true, params[:filter_looking_for] == "true"
+        = f.label 'location_boost'
+        = f.text_field 'location_boost', params[:location_boost] || 200, :class => 'string', :size => 20
+        = f.label 'and_operator', "AND Search"
+        = f.check_box 'and_operator', true, params[:and_operator] == "true"
+        = f.label 'dis_max', "DisMax Query"
+        = f.check_box 'dis_max', true, params[:dis_max] == "true"
+        = f.label 'analyzer', "snowball", :value => "snowball"
+        = f.radio_button 'analyzer', "snowball", params[:analyzer] == "snowball"
+        = f.label 'analyzer', "whitespace", :value => "whitespace"
+        = f.radio_button 'analyzer', "whitespace", params[:analyzer] == "whitespace"
+
+
+  = f.submit 'refine'

@@ -5,10 +5,12 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mongoid'
+gem 'mongoid' , '3.0.5'
 gem 'tire'
 gem 'haml'
 gem 'haml-rails'
+gem 'simple_form'
+gem 'ffi'#, :git => 'git://github.com/ChrisLundquist/ffi.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,6 +22,10 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+end
+
+group :development do
+  gem 'vagrant', '1.0.5'
 end
 
 group :test do

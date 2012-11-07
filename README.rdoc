@@ -1,3 +1,45 @@
+curl -XPOST 'http://elastic3.silp.com:9200/_cluster/nodes//_shutdown'
+
+#mongo
+
+
+mongo localhost:20011/admin
+cfg = { "_id": "s1", "members": [{"_id": 1, "host": "elastic3.silp.com:20011", "priority": 3}, {"_id": 2, "host": "elastic3.silp.com:20012"}, {"_id": 3, "host": "elastic3.silp.com:20013", "arbiterOnly" : true}]}
+rs.initiate(cfg)
+
+mongo localhost:20021/admin
+cfg = { "_id": "s2", "members": [{"_id": 1, "host": "elastic3.silp.com:20021", "priority": 3}, {"_id": 2, "host": "elastic3.silp.com:20022"}, {"_id": 3, "host": "elastic3.silp.com:20023", "arbiterOnly" : true}]}
+rs.initiate(cfg)
+
+ mongo localhost:20011/admin
+
+
+
+use elastic_mongo;
+db.addUser("elastic_mongo", "elastic_mongo");
+
+db.addUser("admin", "admin")
+db.auth("admin", "admin")
+
+
+ sh.addShard("s1/elastic3.silp.com:20011,elastic3.silp.com:20012,elastic3.silp.com:20013")
+ sh.addShard("s2/elastic3.silp.com:20021,elastic3.silp.com:20022,elastic3.silp.com:20023")
+
+ use silp_production
+ db.runCommand( { enablesharding : "silp_production" } );
+ db.runCommand( { shardcollection : "silp_production.people" , key : { _id : 1 } , unique : true } );
+
+
+h3. Remove Shard
+
+db.runCommand( { removeshard : "shard0000" } );
+
+
+
+db.serverStatus()
+db.currentOp()
+
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create

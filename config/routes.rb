@@ -1,5 +1,13 @@
 ElasticMongo::Application.routes.draw do
-  resources :users
+  resources :searches
+
+  resources :elastic_slacklines
+
+  resources :jumping_mongos do
+    collection do
+      post 'search'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -50,7 +58,7 @@ ElasticMongo::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'jumping_mongos#search'
 
   # See how all your routes lay out with "rake routes"
 

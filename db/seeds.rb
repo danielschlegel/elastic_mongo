@@ -8,4 +8,5 @@
 
 100.times do |i|
   User.create(:name => "User #{i}")
+  User.create(:name => "User #{i}")
 end

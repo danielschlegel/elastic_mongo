@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @elastic_slackline.name
+%p
+  %b Weight:
+  = @elastic_slackline.weight
+%p
+  %b Elasticity:
+  = @elastic_slackline.elasticity
+
+= link_to 'Edit', edit_elastic_slackline_path(@elastic_slackline)
+\|
+= link_to 'Back', elastic_slacklines_path
+
+- if false
+  %h2 JumpingMongos
+  - @elastic_slackline.jumping_mongos.each do |jm|
+    = render jm
+

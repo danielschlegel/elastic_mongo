@@ -1,0 +1,27 @@
+
+= simple_form_for @search, :url => search_jumping_mongos_url, :method => :post do |f|
+  = f.input :query, :class => 'string', :input_html => { :cols => 50, :rows => 3 }
+
+  = f.submit 'search'
+
+%p= "Found: #{@jumping_mongos.total}" unless @jumping_mongos.is_a? Mongoid::Criteria
+%table
+  %tr
+    %th Name
+    %th Slackline
+    %th
+    %th
+    %th
+
+  - @jumping_mongos.each do |jumping_mongo|
+    %tr
+      %td= jumping_mongo.name
+      %td= jumping_mongo.elastic_slackline.name if jumping_mongo.elastic_slackline
+      %td= link_to jumping_mongo.url, jumping_mongo.url
+      %td= link_to 'Show', jumping_mongo
+      %td= link_to 'Edit', edit_jumping_mongo_path(jumping_mongo)
+      %td= link_to 'Destroy', jumping_mongo, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Jumping mongo', new_jumping_mongo_path

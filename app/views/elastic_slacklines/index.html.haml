@@ -1,0 +1,24 @@
+%h1 Listing elastic_slacklines
+
+
+%table
+  %tr
+    %th Name
+    %th Weight
+    %th Elasticity
+    %th
+    %th
+    %th
+
+  - @elastic_slacklines.each do |elastic_slackline|
+    %tr
+      %td= elastic_slackline.name
+      %td= elastic_slackline.weight
+      %td= elastic_slackline.elasticity
+      %td= link_to 'Show', elastic_slackline
+      %td= link_to 'Edit', edit_elastic_slackline_path(elastic_slackline)
+      %td= link_to 'Destroy', elastic_slackline, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Elastic slackline', new_elastic_slackline_path

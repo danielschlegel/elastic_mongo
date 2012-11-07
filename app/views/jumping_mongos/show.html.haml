@@ -1,0 +1,11 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @jumping_mongo.name
+%p
+  %b Slackline:
+
+= link_to 'Edit', edit_jumping_mongo_path(@jumping_mongo)
+\|
+= link_to 'Back', jumping_mongos_path
